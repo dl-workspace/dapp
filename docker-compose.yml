@@ -9,7 +9,7 @@ services:
 #    build:
 #      dockerfile: db/Dockerfile
     environment:
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./db/scripts/:/docker-entrypoint-initdb.d/
       - $HOME/docker/volumes/postgres:/var/lib/postgresql/
