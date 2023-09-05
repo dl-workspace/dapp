@@ -8,6 +8,7 @@ RUN ./mvnw clean install
 
 # Package stage
 FROM eclipse-temurin:17-jre-jammy
-EXPOSE 8080
+ARG API_PORT
+EXPOSE ${API_PORT}
 COPY --from=builder /target/*.jar /*.jar
 ENTRYPOINT ["java","-jar","/*.jar"]
