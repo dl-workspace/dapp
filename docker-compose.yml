@@ -1,0 +1,41 @@
+version: "3.9"
+name: dapp
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+#    build:
+#      dockerfile: db/Dockerfile
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./db/scripts/:/docker-entrypoint-initdb.d/
+      - $HOME/docker/volumes/postgres:/var/lib/postgresql/
+    ports:
+      - "5432:5432"
+
+  api:
+    container_name: api
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      extra_hosts:
+        - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  client:
+    container_name: client
+    restart: always
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
