@@ -9,9 +9,9 @@ export default ({ mode }) => {
       watch: {
         usePolling: true
       },
-      port: Number(process.env.VITE_PORT),
+      port: Number(process.env.CLIENT_DEV_PORT),
       host: true,
-      hmr: { port: Number(process.env.VITE_PORT) },
+      hmr: { port: Number(process.env.CLIENT_DEV_PORT) },
     },
   });
 }
